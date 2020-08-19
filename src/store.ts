@@ -5,6 +5,6 @@ const rootReducer = combineReducers({
     authentication: authenticationRecucer
 })
 
-const configureStore = createStore(rootReducer)
+const configureStore = () => createStore(rootReducer)
 
 export default configureStore
