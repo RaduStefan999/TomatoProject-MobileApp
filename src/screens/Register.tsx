@@ -15,10 +15,11 @@ const Register = (props: any) => {
             <ErrorDisplay />
 
             <AuthInput placeholder='Email' icon='user' password={false} onChange={() => {}}/>
+            <AuthInput placeholder='Name' icon='address-book' password={false} onChange={() => {}}/>
             <AuthInput placeholder='Password' icon='lock' password={true} onChange={() => {}}/>
             
             <TouchableOpacity style={styles.submitButton}>
-                <Text style={styles.submitTextButton}>LOGIN</Text>
+                <Text style={styles.submitTextButton}>REGISTER</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => props.navigation.navigate('Login')}>
                 <Text style={styles.translationButton}>Aveti deja cont ? Autentificati-va aici</Text>
