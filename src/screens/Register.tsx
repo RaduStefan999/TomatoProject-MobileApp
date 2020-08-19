@@ -9,7 +9,7 @@ import ErrorDisplay from './../components/ErrorDisplay'
 import AuthTemplete from './../components/AuthTemplete'
 import AuthInput from './../components/AuthInput'
 
-const Login = (props: any) => {
+const Register = (props: any) => {
     return (
         <AuthTemplete>
             <ErrorDisplay />
@@ -20,8 +20,8 @@ const Login = (props: any) => {
             <TouchableOpacity style={styles.submitButton}>
                 <Text style={styles.submitTextButton}>LOGIN</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => props.navigation.navigate('Register')}>
-                <Text style={styles.translationButton}>Nu aveti cont ? Inregistrati-va aici</Text>
+            <TouchableOpacity onPress={() => props.navigation.navigate('Login')}>
+                <Text style={styles.translationButton}>Aveti deja cont ? Autentificati-va aici</Text>
             </TouchableOpacity>
         </AuthTemplete>
     )
@@ -49,4 +49,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default Login
+export default Register
