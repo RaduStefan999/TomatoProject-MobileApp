@@ -1,5 +1,7 @@
 import React from 'react'
-import {} from 'react-native'
+
+//Redux
+import {Provider} from 'react-redux'
 
 //Navigation
 import Navigation from './src/navigation/Navigation'
