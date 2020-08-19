@@ -9,7 +9,13 @@ const AuthInput = (props: any) => {
     return (
         <View style={styles.input}>
             <View style={styles.inputIcon}><FontAwesome name={props.icon} size={24} color={colors.background_main}/></View>
-            <TextInput style={styles.inputField} secureTextEntry={props.password} placeholder={props.placeholder} placeholderTextColor="#ffffff"/>
+            <TextInput style={styles.inputField} 
+                secureTextEntry={props.password} 
+                placeholder={props.placeholder} 
+                placeholderTextColor="#ffffff" 
+                onChangeText={props.onChangeText}
+                value={props.value}
+            />
         </View>
     )
 }

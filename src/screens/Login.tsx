@@ -1,5 +1,17 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native'
+
+//Redux
+import {connect} from 'react-redux'
+import {login} from './../actions/authentiction'
+
+const mapStetToProps = (state) => {return{}}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        login: (email, password) => dispatch(login(email, password))
+    }
+}
 
 //Constants
 import colors from './../constants/colors'
@@ -10,14 +22,26 @@ import AuthTemplete from './../components/AuthTemplete'
 import AuthInput from './../components/AuthInput'
 
 const Login = (props: any) => {
+
+    const [inputEmail, setInputEmail] = useState('')
+    const [inputPassword, setInputPassword] = useState('')
+
+    const onChangeInputEmailHandler = (text) => {
+        setInputEmail(text)
+    }
+
+    const onChangeInputPasswordHandler = (text) => {
+        setInputPassword(text)
+    }
+
     return (
         <AuthTemplete>
             <ErrorDisplay />
 
-            <AuthInput placeholder='Email' icon='user' password={false} onChange={() => {}}/>
-            <AuthInput placeholder='Password' icon='lock' password={true} onChange={() => {}}/>
+            <AuthInput placeholder='Email' icon='user' password={false} onChangeText={onChangeInputEmailHandler} value={inputEmail}/>
+            <AuthInput placeholder='Password' icon='lock' password={true} onChangeText={onChangeInputPasswordHandler} value={inputPassword}/>
             
-            <TouchableOpacity style={styles.submitButton}>
+            <TouchableOpacity style={styles.submitButton} onPress={() => props.login(inputEmail, inputPassword)}>
                 <Text style={styles.submitTextButton}>LOGIN</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => props.navigation.navigate('Register')}>
@@ -49,4 +73,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default Login
+export default connect(mapStetToProps, mapDispatchToProps) (Login)
