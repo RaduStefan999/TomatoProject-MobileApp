@@ -9,10 +9,7 @@ const Home = (props) => {
         <View style={styles.screen}>
             <View style={styles.itemListConatiner}>
                 <ItemCard added={false}/>
-                <ItemCard></ItemCard>
-                <ItemCard></ItemCard>
             </View>
-            
         </View>
     )
 }
