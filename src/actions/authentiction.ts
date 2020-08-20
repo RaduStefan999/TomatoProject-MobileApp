@@ -1,10 +1,48 @@
-import {LOADING, LOGIN_REQUEST_ASYNC, LOGIN_SUCCESS, LOGIN_ERROR, LOGOUT, REGISTER} from './types'
+import {LOADING, 
+        LOGIN_SUCCESS, 
+        LOGIN_ERROR, 
+        LOGOUT, 
+        REGISTER} from './types'
 
-export const loginRequest = (email: string, password: string) => {
+import {adress} from './../constants/serverData'
+
+//LADING - ACTIONS
+export const loading = () => {
     return {
-        type: LOGIN_REQUEST_ASYNC,
-        email: email,
-        password: password
+        type: LOADING
+    }
+}
+
+//LOGIN - ACTIONS
+export const login = (email: string, password: string) => {
+    return async dispatch => {
+        dispatch (loading())
+
+        try {
+            const data = {
+                'email': email,
+                'password': password
+            }
+            await fetch(`${adress}/login`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success == true) {
+                    dispatch(loginSuccess(data.token))
+                }
+                else {
+                    dispatch(loginError(data.errors))
+                }
+            })
+        }
+        catch(e) {
+            
+        }
     }
 }
 
@@ -15,13 +53,14 @@ export const loginSuccess = (token: string) => {
     }
 }
 
-
-export const loginError = (errors: []) => {
+export const loginError = (errors: any) => {
     return {
         type: LOGIN_ERROR,
         payload: errors
     }
 }
+
+//LOGOUT
 
 export const logout = () => {
     return {

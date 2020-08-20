@@ -1,12 +1,13 @@
 import React from 'react'
-import {} from 'react-native'
+import {Modal} from 'react-native'
 
 //Redux
 import {connect} from 'react-redux'
 
 const mapStateToProps = (state: any) => {
     return {
-        isLoggedIn: state.authentication.isLoggedIn
+        isLoggedIn: state.authentication.isLoggedIn,
+        isLoading: state.authentication.isLoading
     }
 }
 
@@ -21,9 +22,13 @@ import Login from './../screens/Login'
 import Register from './../screens/Register'
 import Home from './../screens/Home'
 
+//Components
+import Loading from './../components/Loading'
+
 const Navigation = (props) => {
     return (
         <NavigationContainer>
+            <Loading visible={props.isLoading}/>
             <Stack.Navigator>
                 {props.isLoggedIn ? (
                     <>
