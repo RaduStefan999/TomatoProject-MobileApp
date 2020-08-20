@@ -7,8 +7,7 @@ import colors from './../constants/colors'
 const ErrorDsplay = (props: any) => {
     return (
         <View style={styles.errorScreen}>
-            <Text style={styles.errorText}>Error: Email is already in use</Text>
-            <Text style={styles.errorText}>Error: Password canot be null</Text>
+            {props.errors.map((error, index) => <Text style={styles.errorText} key={index}>{error}</Text>)}
         </View>
     )
 }

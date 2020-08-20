@@ -5,7 +5,11 @@ import {View, Text, TouchableOpacity, StyleSheet} from 'react-native'
 import {connect} from 'react-redux'
 import {login} from './../actions/authentiction'
 
-const mapStetToProps = (state) => {return{}}
+const mapStetToProps = (state) => {
+    return {
+        loginErrors: state.authentication.loginErrors
+    }
+}
 
 const mapDispatchToProps = (dispatch) => {
     return {
@@ -36,7 +40,7 @@ const Login = (props: any) => {
 
     return (
         <AuthTemplete>
-            <ErrorDisplay />
+            {props.loginErrors.length > 0 && <ErrorDisplay errors={props.loginErrors}/>}
 
             <AuthInput placeholder='Email' icon='user' password={false} onChangeText={onChangeInputEmailHandler} value={inputEmail}/>
             <AuthInput placeholder='Password' icon='lock' password={true} onChangeText={onChangeInputPasswordHandler} value={inputPassword}/>

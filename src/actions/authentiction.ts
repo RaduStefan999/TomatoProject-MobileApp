@@ -36,12 +36,16 @@ export const login = (email: string, password: string) => {
                     dispatch(loginSuccess(data.token))
                 }
                 else {
-                    dispatch(loginError(data.errors))
+                    let errors = []
+                    for (let key in data.errors) {
+                        errors = errors.concat(data.errors[key])
+                    }
+                    dispatch(loginError(errors))
                 }
             })
         }
         catch(e) {
-            
+            dispatch(loginError(['Server connection problem']))
         }
     }
 }

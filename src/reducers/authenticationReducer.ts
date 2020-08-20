@@ -8,7 +8,7 @@ const initialState = {
     token: '',
     isLoggedIn: false,
     isLoading: false,
-    login_errors: {}
+    loginErrors: []
 }
 
 const authenticationReducer = (state = initialState, action: any) => {
@@ -22,11 +22,11 @@ const authenticationReducer = (state = initialState, action: any) => {
 
         case LOGIN_SUCCESS:
             return {
-                ...state, isLoading : false, isLoggedIn : true, token : action.payload 
+                ...state, isLoading : false, isLoggedIn : true, token : action.payload , loginErrors : []
             }
         case LOGIN_ERROR:
             return {
-                ...state, isLoading : false, login_errors : action.payload
+                ...state, isLoading : false, loginErrors : action.payload
             }
 
         case LOGOUT:
