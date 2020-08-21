@@ -1,15 +1,16 @@
 import {LOGIN_SUCCESS, 
         LOGIN_ERROR, 
         LOGOUT, 
-        REGISTER} from './types'
+        REGISTER,
+        EXPIRED_TOKEN} from './types'
 
-import {loadingStart, loadingStop} from './global'
+import {setLoading} from './global'
 import {adress} from './../constants/serverData'
 
 //LOGIN - ACTIONS
 export const login = (email: string, password: string) => {
     return async dispatch => {
-        dispatch (loadingStart())
+        dispatch (setLoading(true))
 
         try {
             const data = {
@@ -41,7 +42,7 @@ export const login = (email: string, password: string) => {
             dispatch(loginError(['Server connection problem']))
         }
         
-        dispatch (loadingStop())
+        dispatch (setLoading(false))
     }
 }
 
@@ -73,5 +74,12 @@ export const register = (email: string, name: string, password: string) => {
         email: email,
         name: name,
         password: password
+    }
+}
+
+//EXPIRED TOKEN
+export const expiredToken = () => {
+    return {
+        type: EXPIRED_TOKEN
     }
 }

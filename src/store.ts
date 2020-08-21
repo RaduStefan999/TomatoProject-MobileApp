@@ -1,12 +1,14 @@
 import {createStore, applyMiddleware, combineReducers} from 'redux'
-import authenticationRecucer from './reducers/authenticationReducer'
 import globalReducer from './reducers/globalReducer'
+import authenticationRecucer from './reducers/authenticationReducer'
+import productsReducer from './reducers/productsReducer'
 
 import thunk from 'redux-thunk'
 
 const rootReducer = combineReducers({
     global: globalReducer,
-    authentication: authenticationRecucer
+    authentication: authenticationRecucer,
+    products: productsReducer
 })
 
 const configureStore = () => createStore(rootReducer, applyMiddleware(thunk))

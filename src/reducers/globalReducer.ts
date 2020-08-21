@@ -1,4 +1,4 @@
-import {LOADING_START, LOADING_STOP} from './../actions/types'
+import {SET_LOADING} from './../actions/types'
 
 const initialState = {
     isLoading: false
@@ -7,13 +7,9 @@ const initialState = {
 const globalReducer = (state = initialState, action: any) => {
     switch(action.type) {
         
-        case LOADING_START: 
+        case SET_LOADING: 
             return {
-                ...state, isLoading: true
-            }
-        case LOADING_STOP: 
-            return {
-                ...state, isLoading: false
+                ...state, isLoading: action.payload
             }
         default: 
             return state

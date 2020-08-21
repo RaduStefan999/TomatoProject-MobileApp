@@ -1,13 +1,8 @@
-import {LOADING_START, LOADING_STOP} from './types'
+import {SET_LOADING} from './types'
 
-export const loadingStart = () => {
+export const setLoading = (status: boolean) => {
     return {
-        type: LOADING_START
-    }
-}
-
-export const loadingStop = () => {
-    return {
-        type: LOADING_STOP
+        type: SET_LOADING,
+        payload: status
     }
 }
