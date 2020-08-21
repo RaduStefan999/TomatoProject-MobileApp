@@ -1,4 +1,9 @@
-import {GET_PRODUCTS_SUCCESS, GET_PRODUCTS_ERROR, SET_RELOAD_PRODUCTS} from './types'
+import {GET_PRODUCTS_SUCCESS, 
+        GET_PRODUCTS_ERROR, 
+        SET_RELOAD_PRODUCTS,
+        ADD_PRODUCT_TO_CART,
+        REMOVE_PRODUCT_FROM_CART,
+        CHANGE_PRODUCT_QUANTITY_CART} from './types'
 
 import {setLoading} from './global'
 import {expiredToken} from './authentiction'
@@ -47,6 +52,29 @@ export const getProductsError = (errors: any) => {
         payload: errors
     }
 }
+
+export const addProductToCart = (id: string) => {
+    return {
+        type: ADD_PRODUCT_TO_CART,
+        payload: id
+    }
+}
+
+export const removeProductFromCart = (id: string) => {
+    return {
+        type: REMOVE_PRODUCT_FROM_CART,
+        payload: id
+    }
+}
+
+export const changeProductQuantityCart = (id: string, amount: number) => {
+    return {
+        type: CHANGE_PRODUCT_QUANTITY_CART,
+        id: id,
+        amount: amount
+    }
+}
+
 
 export const setReloadProducts = (status: boolean) => {
     return {

@@ -18,10 +18,10 @@ const ItemCard = (props) => {
 
             {(props.added) ? (
                 <View style={styles.pressedContainer}>
-                    <Text style={styles.pressedText}>Deja in cos</Text>
+                    <Text style={styles.pressedText}>Adaugat in cos</Text>
                 </View>
             ) : (
-                <TouchableOpacity style={{width: '100%'}}>
+                <TouchableOpacity style={{width: '100%'}} onPress={props.onAdd}>
                     <View style={styles.borderContainer}>
                         <Text style={styles.buttonText}>Adauga</Text>
                     </View>
