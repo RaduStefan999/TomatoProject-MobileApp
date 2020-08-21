@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react'
-import {View, FlatList, StyleSheet} from 'react-native'
+import {View, ScrollView, StyleSheet} from 'react-native'
 
 //Redux
 import {connect} from 'react-redux'
@@ -34,13 +34,15 @@ const Home = (props) => {
     })
 
     return (
-        <View style={styles.screen}>
-            <View style={styles.itemListConatiner}>
-                <FlatList data={props.products} 
-                keyExtractor={(obj) => (obj.id).toString()} 
-                renderItem={(obj) => <ItemCard name={obj.item.name} image={obj.item.image} price={obj.item.price} priceUnit={obj.item.priceUnit} added={false}/>}/>
+        <ScrollView style={{flex: 1}} contentContainerStyle={{flexGrow: 1}}>
+            <View style={styles.screen}>
+                <View style={styles.itemListConatiner}>
+                    {props.products.map((obj) => 
+                        <ItemCard key={obj.id} name={obj.name} image={obj.image} price={obj.price} priceUnit={obj.priceUnit} added={false}/>
+                    )}
+                </View>
             </View>
-        </View>
+        </ScrollView>
     )
 }
 
