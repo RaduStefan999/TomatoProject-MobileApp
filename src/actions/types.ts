@@ -1,5 +1,6 @@
 //LOADING
-export const LOADING = 'LOADING'
+export const LOADING_START = 'LOADING_START'
+export const LOADING_STOP = 'LOADING_STOP'
 
 //LOGIN
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'

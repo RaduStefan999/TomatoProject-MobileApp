@@ -7,7 +7,7 @@ import {connect} from 'react-redux'
 const mapStateToProps = (state: any) => {
     return {
         isLoggedIn: state.authentication.isLoggedIn,
-        isLoading: state.authentication.isLoading
+        isLoading: state.global.isLoading
     }
 }
 

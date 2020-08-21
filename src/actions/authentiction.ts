@@ -1,22 +1,15 @@
-import {LOADING, 
-        LOGIN_SUCCESS, 
+import {LOGIN_SUCCESS, 
         LOGIN_ERROR, 
         LOGOUT, 
         REGISTER} from './types'
 
+import {loadingStart, loadingStop} from './global'
 import {adress} from './../constants/serverData'
-
-//LADING - ACTIONS
-export const loading = () => {
-    return {
-        type: LOADING
-    }
-}
 
 //LOGIN - ACTIONS
 export const login = (email: string, password: string) => {
     return async dispatch => {
-        dispatch (loading())
+        dispatch (loadingStart())
 
         try {
             const data = {
@@ -47,6 +40,8 @@ export const login = (email: string, password: string) => {
         catch(e) {
             dispatch(loginError(['Server connection problem']))
         }
+        
+        dispatch (loadingStop())
     }
 }
 
