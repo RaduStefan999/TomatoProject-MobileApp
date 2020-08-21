@@ -41,13 +41,14 @@ const productsReducer = (state = initialState, action: any) => {
             }
         }
         case CHANGE_PRODUCT_QUANTITY_CART: {
-            
-            const index = state.cart.findIndex((product) => product.id == action.id)
-            const copy = state.cart
-            copy[index].quantity = Math.max(1, copy[index].quantity + action.amount)
-
             return {
-                ...state, cart: copy
+                ...state, cart: state.cart.map((product) => {
+                    if (product.id == action.id) {
+                        product.quantity = Math.max(1, product.quantity + action.amount)
+                    }
+
+                    return product
+                })
             }
         }
         default: {
