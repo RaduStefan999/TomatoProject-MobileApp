@@ -17,9 +17,9 @@ const ItemCheckout = (props) => {
                     <Text style={styles.price}>{props.price}<Text>{props.priceUnit}</Text></Text>
                 </View>
                 <View style={styles.actionsContainer}>
-                    <TouchableOpacity onPress={props.decreseAmount}><FontAwesome name="minus-square-o" size={26} color="black" /></TouchableOpacity>
+                    <TouchableOpacity onPress={props.decreseAmount}><FontAwesome name="minus-square-o" size={30} color="black" /></TouchableOpacity>
                         <View style={{flex: 1}}><Text style={styles.quantityText}>{props.amount}</Text></View>
-                    <TouchableOpacity onPress={props.increseAmount}><FontAwesome name="plus-square-o" size={26} color="black" /></TouchableOpacity>
+                    <TouchableOpacity onPress={props.increseAmount}><FontAwesome name="plus-square-o" size={30} color="black" /></TouchableOpacity>
                 </View>
             </View>
             <View style={styles.itemButtons}>
@@ -89,7 +89,8 @@ const styles= StyleSheet.create({
         alignItems: 'center'
     },
     buttonText: {
-        padding: 5,
+        paddingHorizontal: 5,
+        paddingVertical: 7,
         color: colors.background_main,
         fontSize: 12
     },

@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {View, Modal, TouchableOpacity, StyleSheet, Text} from 'react-native'
+import {View, TouchableOpacity, StyleSheet, Text} from 'react-native'
 import {FontAwesome} from '@expo/vector-icons'; 
 import {useNavigation} from '@react-navigation/native';
 
@@ -23,79 +23,40 @@ const mapDispatchToProps = (dispatch) => {
 //constants
 import colors from './../constants/colors'
 
+//Components
+import LogoutModal from './../components/LogoutModal'
+
 const HeaderButtons = (props) => {
 
     const [openLogoutModal, setOpenLogoutModal] = useState(false)
+
+    const logoutHandler = () => {
+        setOpenLogoutModal(false)
+        props.logout(props.token)
+    }
 
     const navigation = useNavigation()
 
     return (
         <View style={{flexDirection: 'row', marginRight: 15}}>
-            <Modal visible={openLogoutModal} transparent={true}>
-                <View style={styles.logoutModal}>
-                    <View style={styles.logoutModalBox}>
-                        <Text>Are you sure you want to logout ?</Text>
-                        <View style={styles.buttonContainer}>
-                            <TouchableOpacity style={{width: '40%'}} onPress={() => {
-                                setOpenLogoutModal(false)
-                                props.logout(props.token)
-                            }}>
-                                <View style={{...styles.button, backgroundColor: 'red'}}>
-                                    <Text style={{color: 'white'}}>Yes</Text>
-                                </View>
-                            </TouchableOpacity>
-                            <TouchableOpacity style={{width: '40%'}} onPress={() => setOpenLogoutModal(false)}>
-                                <View style={{...styles.button, backgroundColor: 'blue'}}>
-                                    <Text style={{color: 'white'}}>No</Text>
-                                </View>
-                            </TouchableOpacity>
-                        </View>
-                    </View>
-                </View>
-            </Modal>
+            <LogoutModal visible={openLogoutModal} onLogout={logoutHandler} onCancelLogout={() => setOpenLogoutModal(false)}/>
 
-            <TouchableOpacity style={{marginRight: 20}} onPress={() => navigation.navigate(props.navigateToTab)}>
+            <TouchableOpacity style={{marginRight: 25}} onPress={() => navigation.navigate(props.navigateToTab)}>
                 <View style={styles.cart}>
                     {(props.cart.length > 0 && props.displayNumberOfItems) &&
                         <View style={styles.itemsNumber}>
                             <Text style={styles.itemsNumberText}>{props.cart.length}</Text>
                         </View>
                      }
-                    <FontAwesome name={props.icon} size={26} color="white" />
+                    <FontAwesome name={props.icon} size={30} color="white" />
                 </View>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => setOpenLogoutModal(true)}><FontAwesome name="sign-out" size={26} color="white" /></TouchableOpacity>
+            <TouchableOpacity onPress={() => setOpenLogoutModal(true)}><FontAwesome name="sign-out" size={30} color="white" /></TouchableOpacity>
         </View>
     )
 }
 
 const styles = StyleSheet.create({
-    logoutModal: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: '#00000080'
-    },
-    logoutModalBox: {
-        width: '50%',
-        minWidth: 250,
-        backgroundColor: 'white',
-        padding: 20,
-        alignItems: 'center',
-        borderRadius: 20
-    },
-    buttonContainer: {
-        width: '100%',
-        flexDirection: 'row',
-        justifyContent: "space-evenly"
-    },
-    button: {
-        width: '100%',
-        padding: 10,
-        alignItems: 'center',
-        borderRadius: 10,
-        marginTop: 15
-    },
     itemsNumber: {
         backgroundColor: 'white',
         paddingVertical: 3,
