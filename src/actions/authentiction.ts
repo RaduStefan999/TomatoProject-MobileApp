@@ -1,9 +1,9 @@
 import {LOGIN_SUCCESS, 
-        LOGIN_ERROR, 
-        LOGOUT_CLIENT_SIDE, 
-        REGISTER} from './types'
+        LOGIN_ERROR,
+        REGISTER_SUCCESS,
+        REGISTER_ERROR} from './types'
 
-import {setLoading} from './global'
+import {setLoading, resetAuthenticationData, resetProductData} from './global'
 import {adress} from './../constants/serverData'
 
 //LOGIN - ACTIONS
@@ -94,16 +94,61 @@ export const logout = (token: string) => {
 }
 
 export const logoutClientSide = () => {
-    return {
-        type: LOGOUT_CLIENT_SIDE
+    return async dispatch => {
+        dispatch (resetAuthenticationData())
+        dispatch (resetProductData())
     }
 }
 
 export const register = (email: string, name: string, password: string) => {
+    return async dispatch => {
+        dispatch (setLoading(true))
+
+        try {
+            const data = {
+                'email': email,
+                'name': name,
+                'password': password
+            }
+            await fetch(`${adress}/register`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => {
+                dispatch (setLoading(false))
+                if (data.success == true) {
+                    dispatch(registerSuccess(data.token))
+                }
+                else {
+                    let errors = []
+                    for (let key in data.errors) {
+                        errors = errors.concat(data.errors[key])
+                    }
+                    dispatch(registerError(errors))
+                }
+            })
+        }
+        catch(e) {
+            dispatch (setLoading(false))
+            dispatch(registerError(['Server connection problem']))
+        }
+    }
+}
+
+export const registerSuccess = (token: string) => {
     return {
-        type: REGISTER,
-        email: email,
-        name: name,
-        password: password
+        type: REGISTER_SUCCESS,
+        payload: token
+    }
+}
+
+export const registerError = (errors: any) => {
+    return {
+        type: REGISTER_ERROR,
+        payload: errors
     }
 }

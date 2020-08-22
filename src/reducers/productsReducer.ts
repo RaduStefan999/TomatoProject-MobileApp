@@ -3,7 +3,8 @@ import {GET_PRODUCTS_SUCCESS,
         SET_RELOAD_PRODUCTS,
         ADD_PRODUCT_TO_CART,
         REMOVE_PRODUCT_FROM_CART,
-        CHANGE_PRODUCT_QUANTITY_CART} from './../actions/types'
+        CHANGE_PRODUCT_QUANTITY_CART,
+        RESET_PRODUCT_DATA} from './../actions/types'
 
 const initialState = {
     products: [],
@@ -49,6 +50,11 @@ const productsReducer = (state = initialState, action: any) => {
 
                     return product
                 })
+            }
+        }
+        case RESET_PRODUCT_DATA: {
+            return {
+                ...state, products: [], cart: [], productsErrors: [], reloadProducts: true
             }
         }
         default: {

@@ -1,5 +1,21 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native'
+
+//Redux
+import {connect} from 'react-redux'
+import {register} from './../actions/authentiction'
+
+const mapStetToProps = (state) => {
+    return {
+        registerErrors: state.authentication.registerErrors
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        register: (email, name, password) => dispatch(register(email, name, password))
+    }
+}
 
 //Constants
 import colors from './../constants/colors'
@@ -10,15 +26,32 @@ import AuthTemplete from './../components/AuthTemplete'
 import AuthInput from './../components/AuthInput'
 
 const Register = (props: any) => {
+
+    const [inputEmail, setInputEmail] = useState()
+    const [inputName, setInputName] = useState()
+    const [inputPassword, setInputPassword] = useState()
+
+    const onChangeInputEmailHandler = (text) => {
+        setInputEmail(text)
+    }
+
+    const onChangeInputNameHandler = (text) => {
+        setInputName(text)
+    }
+
+    const onChangeInputPasswordHandler = (text) => {
+        setInputPassword(text)
+    }
+
     return (
         <AuthTemplete>
-            <ErrorDisplay />
+            {props.registerErrors.length > 0 && <ErrorDisplay errors={props.registerErrors}/>}
 
-            <AuthInput placeholder='Email' icon='user' password={false} onChange={() => {}}/>
-            <AuthInput placeholder='Name' icon='address-book' password={false} onChange={() => {}}/>
-            <AuthInput placeholder='Password' icon='lock' password={true} onChange={() => {}}/>
+            <AuthInput placeholder='Email' icon='user' password={false} onChangeText={onChangeInputEmailHandler} value={inputEmail}/>
+            <AuthInput placeholder='Name' icon='address-book' password={false} onChangeText={onChangeInputNameHandler} value={inputName}/>
+            <AuthInput placeholder='Password' icon='lock' password={true} onChangeText={onChangeInputPasswordHandler} value={inputPassword}/>
             
-            <TouchableOpacity style={styles.submitButton}>
+            <TouchableOpacity style={styles.submitButton} onPress={() => props.register(inputEmail, inputName, inputPassword)}>
                 <Text style={styles.submitTextButton}>REGISTER</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => props.navigation.navigate('Login')}>
@@ -50,4 +83,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default Register
+export default connect(mapStetToProps, mapDispatchToProps) (Register)

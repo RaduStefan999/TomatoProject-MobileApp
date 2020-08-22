@@ -1,12 +1,14 @@
 import {LOGIN_SUCCESS, 
     LOGIN_ERROR,  
-    REGISTER,
-    LOGOUT_CLIENT_SIDE} from './../actions/types'
+    REGISTER_SUCCESS,
+    REGISTER_ERROR,
+    RESET_AUTHENTICATION_DATA} from './../actions/types'
 
 const initialState = {
     token: '',
     isLoggedIn: false,
-    loginErrors: []
+    loginErrors: [],
+    registerErrors: [],
 }
 
 const authenticationReducer = (state = initialState, action: any) => {
@@ -22,11 +24,18 @@ const authenticationReducer = (state = initialState, action: any) => {
                 ...state, loginErrors : action.payload
             }
             
-        case REGISTER:
-            return state
-        case LOGOUT_CLIENT_SIDE:
+        case REGISTER_SUCCESS:
             return {
-                ...state, isLoggedIn: false, token: '' 
+                ...state, isLoggedIn : true, token : action.payload, registerErrors : []
+            }
+        case REGISTER_ERROR:
+            return {
+                ...state, registerErrors : action.payload
+            }
+
+        case RESET_AUTHENTICATION_DATA:
+            return {
+                ...state, isLoggedIn : false, token : '', loginErrors : [], registerErrors : []
             }
         default:
             return state
