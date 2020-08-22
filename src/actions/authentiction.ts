@@ -1,8 +1,7 @@
 import {LOGIN_SUCCESS, 
         LOGIN_ERROR, 
-        LOGOUT, 
-        REGISTER,
-        EXPIRED_TOKEN} from './types'
+        LOGOUT_CLIENT_SIDE, 
+        REGISTER} from './types'
 
 import {setLoading} from './global'
 import {adress} from './../constants/serverData'
@@ -26,6 +25,7 @@ export const login = (email: string, password: string) => {
             })
             .then(response => response.json())
             .then(data => {
+                dispatch (setLoading(false))
                 if (data.success == true) {
                     dispatch(loginSuccess(data.token))
                 }
@@ -39,10 +39,9 @@ export const login = (email: string, password: string) => {
             })
         }
         catch(e) {
+            dispatch (setLoading(false))
             dispatch(loginError(['Server connection problem']))
         }
-        
-        dispatch (setLoading(false))
     }
 }
 
@@ -61,10 +60,42 @@ export const loginError = (errors: any) => {
 }
 
 //LOGOUT
+export const logout = (token: string) => {
+    return async dispatch => {
+        dispatch (setLoading(true))
 
-export const logout = () => {
+        try {
+            const data = {
+                'token': token
+            }
+            await fetch(`${adress}/logout`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => {
+                dispatch (setLoading(false))
+                if (data.success == true) {
+                    dispatch(logoutClientSide())
+                }
+                else if (data.expiredToken == true) {
+                    dispatch(logoutClientSide())
+                }
+            })
+        }
+        catch(e) {
+            dispatch (setLoading(false))
+            dispatch(loginError(['Server connection problem']))
+        }
+    }
+}
+
+export const logoutClientSide = () => {
     return {
-        type: LOGOUT
+        type: LOGOUT_CLIENT_SIDE
     }
 }
 
@@ -74,12 +105,5 @@ export const register = (email: string, name: string, password: string) => {
         email: email,
         name: name,
         password: password
-    }
-}
-
-//EXPIRED TOKEN
-export const expiredToken = () => {
-    return {
-        type: EXPIRED_TOKEN
     }
 }

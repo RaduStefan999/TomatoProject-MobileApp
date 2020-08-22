@@ -5,7 +5,7 @@ export const SET_LOADING = 'SET_LOADING'
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
 export const LOGIN_ERROR = 'LOGIN_ERROR'
 
-export const LOGOUT = 'LOGOUT'
+export const LOGOUT_CLIENT_SIDE = 'LOGOUT_CLIENT_SIDE'
 export const REGISTER = 'REGISTER'
 
 export const EXPIRED_TOKEN = 'EXPIRED_TOKEN'

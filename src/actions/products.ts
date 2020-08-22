@@ -6,7 +6,7 @@ import {GET_PRODUCTS_SUCCESS,
         CHANGE_PRODUCT_QUANTITY_CART} from './types'
 
 import {setLoading} from './global'
-import {expiredToken} from './authentiction'
+import {logoutClientSide} from './authentiction'
 import {adress} from './../constants/serverData'
 
 export const getProducts = (token: string) => {
@@ -23,19 +23,19 @@ export const getProducts = (token: string) => {
             })
             .then(response => response.json())
             .then(data => {
+                dispatch (setLoading(false))
                 if (data.expiredToken != true) {
                     dispatch(getProductsSuccess(data))
                 }
                 else {
-                    dispatch(expiredToken())
+                    dispatch(logoutClientSide())
                 }
             })
         }
         catch(e) {
+            dispatch (setLoading(false))
             dispatch(getProductsError(['Server connection problem']))
         }
-
-        dispatch (setLoading(false))
     }
 }
 

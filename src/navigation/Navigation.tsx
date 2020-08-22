@@ -31,7 +31,7 @@ import Loading from './../components/Loading'
 import HeaderButtons from './../components/HeaderButtons'
 
 //HeaderOptions
-const headerOptions = (title: string, navigateToTab: string, icon: string) => {
+const headerOptions = (title: string, navigateToTab: string, icon: string, displayNumberOfItems: boolean) => {
     return {
         title: title,
         headerStyle: {
@@ -41,7 +41,7 @@ const headerOptions = (title: string, navigateToTab: string, icon: string) => {
         headerTitleStyle: {
             fontWeight: 'bold'
         },
-        headerRight: () => <HeaderButtons navigateToTab={navigateToTab} icon={icon}/>
+        headerRight: () => <HeaderButtons navigateToTab={navigateToTab} icon={icon} displayNumberOfItems={displayNumberOfItems}/>
     }
 }
 
@@ -52,8 +52,8 @@ const Navigation = (props) => {
             <Stack.Navigator>
                 {props.isLoggedIn ? (
                     <>
-                        <Stack.Screen name='Home' component={Home} options={headerOptions('Tomato Products', 'Cart', 'shopping-cart')}/>
-                        <Stack.Screen name='Cart' component={Cart} options={headerOptions('Your Cart', 'Home', 'list')}/>
+                        <Stack.Screen name='Home' component={Home} options={headerOptions('Tomato Products', 'Cart', 'shopping-cart', true)}/>
+                        <Stack.Screen name='Cart' component={Cart} options={headerOptions('Your Cart', 'Home', 'list', false)}/>
                     </>
                 ):
                 (

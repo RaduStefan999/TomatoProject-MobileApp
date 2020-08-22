@@ -1,8 +1,7 @@
 import {LOGIN_SUCCESS, 
-    LOGIN_ERROR, 
-    LOGOUT, 
+    LOGIN_ERROR,  
     REGISTER,
-    EXPIRED_TOKEN} from './../actions/types'
+    LOGOUT_CLIENT_SIDE} from './../actions/types'
 
 const initialState = {
     token: '',
@@ -22,12 +21,10 @@ const authenticationReducer = (state = initialState, action: any) => {
             return {
                 ...state, loginErrors : action.payload
             }
-
-        case LOGOUT:
-            return state
+            
         case REGISTER:
             return state
-        case EXPIRED_TOKEN:
+        case LOGOUT_CLIENT_SIDE:
             return {
                 ...state, isLoggedIn: false, token: '' 
             }
