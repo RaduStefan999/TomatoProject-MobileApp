@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "TomatoMobileApp",
-    "slug": "TomatoMobileApp",
+    "name": "TomatoApp",
+    "slug": "TomatoApp",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
