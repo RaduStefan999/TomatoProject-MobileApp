@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react'
-import {View, ScrollView, StyleSheet} from 'react-native'
+import {View, RefreshControl, ScrollView, StyleSheet} from 'react-native'
 
 //Redux
 import {connect} from 'react-redux'
@@ -36,7 +36,9 @@ const Home = (props) => {
     })
 
     return (
-        <ScrollView style={{flex: 1}} contentContainerStyle={{flexGrow: 1}}>
+        <ScrollView style={{flex: 1}} contentContainerStyle={{flexGrow: 1}} refreshControl={
+            <RefreshControl refreshing={props.reloadProducts} onRefresh={() => props.setReloadProducts(true)}/>
+        }>
             <View style={styles.screen}>
                 <View style={styles.itemListConatiner}>
                     {props.products.map((obj) => 
