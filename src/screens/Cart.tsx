@@ -1,5 +1,5 @@
-import React from 'react'
-import {View, ScrollView, StyleSheet} from 'react-native'
+import React, {useEffect, useState} from 'react'
+import {View, ScrollView, StyleSheet, Text} from 'react-native'
 
 //Redux
 import {connect} from 'react-redux'
@@ -19,9 +19,27 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
+//constants
+import colors from './../constants/colors'
+
+//Components
 import ItemCheckout from './../components/ItemCheckout'
 
 const Cart = (props) => {
+
+    const [totalPrice, setTotalPrice] = useState(0)
+
+    useEffect(() => {
+        let price = 0
+    
+        props.cart.map((obj) => {
+            const checkoutProduct = (props.products.filter((product) => product.id == obj.id))[0]
+            price = price + (obj.quantity * checkoutProduct.price)
+        })
+
+        if (price != totalPrice) setTotalPrice(price)
+    })
+
     return (
         <ScrollView style={{flex: 1}} contentContainerStyle={{flexGrow: 1}}>
             <View style={styles.screen}>
@@ -43,6 +61,7 @@ const Cart = (props) => {
                         }
                     )}
                 </View>
+                <View style={styles.priceBorder}><Text style={styles.priceText}>Total price : {totalPrice.toFixed(2)}</Text></View>
             </View>
         </ScrollView>
     )
@@ -55,6 +74,18 @@ const styles = StyleSheet.create({
     },
     itemListContainer: {
         marginBottom: 40
+    },
+    priceBorder: {
+        width: '100%',
+        alignItems: 'center',
+        borderWidth: 3,
+        borderColor: colors.background_main,
+        borderRadius: 20
+    },
+    priceText: {
+        color: colors.background_main,
+        fontSize: 18,
+        padding: 10
     }
 })
 
